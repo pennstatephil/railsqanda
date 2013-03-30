@@ -1,0 +1,15 @@
+<div class="box">
+	<%= link_to question.title, question %>
+	<p class="description">
+		<%= pin.description %>
+	</p>
+	<p>
+		<strong>Posted by <%= question.user.name%></strong>
+	</p>
+	<p>
+		<% if current_user == pin.user %>
+			<%= link_to 'Edit', edit_pin_path(pin) %>
+			<%= link_to 'Destroy', pin, method: :delete, data: { confirm: 'Are you sure?' } %>
+		<% end %>
+	</p>
+</div>
