@@ -1,8 +1,10 @@
 class AnswersController < ApplicationController
+  before_filter :authenticate_user!, except: [:index, :show]
+
   # GET /answers
   # GET /answers.json
   def index
-    @answers = Answer.all
+    @answers = Answer.order("created_at desc")
 
     respond_to do |format|
       format.html # index.html.erb
@@ -24,7 +26,7 @@ class AnswersController < ApplicationController
   # GET /answers/new
   # GET /answers/new.json
   def new
-    @answer = Answer.new
+    @answer = current_user.answers.new
 
     respond_to do |format|
       format.html # new.html.erb
@@ -34,13 +36,13 @@ class AnswersController < ApplicationController
 
   # GET /answers/1/edit
   def edit
-    @answer = Answer.find(params[:id])
+    @answer = current_user.answers.find(params[:id])
   end
 
   # POST /answers
   # POST /answers.json
   def create
-    @answer = Answer.new(params[:answer])
+    @answer = current_user.answers.new(params[:answer])
 
     respond_to do |format|
       if @answer.save
@@ -56,7 +58,7 @@ class AnswersController < ApplicationController
   # PUT /answers/1
   # PUT /answers/1.json
   def update
-    @answer = Answer.find(params[:id])
+    @answer = current_user.answers.find(params[:id])
 
     respond_to do |format|
       if @answer.update_attributes(params[:answer])
@@ -72,7 +74,7 @@ class AnswersController < ApplicationController
   # DELETE /answers/1
   # DELETE /answers/1.json
   def destroy
-    @answer = Answer.find(params[:id])
+    @answer = current_user.answers.find(params[:id])
     @answer.destroy
 
     respond_to do |format|
