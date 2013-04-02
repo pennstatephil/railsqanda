@@ -1,10 +1,14 @@
 class QuestionsController < ApplicationController
   before_filter :authenticate_user!, except: [:index, :show]
-  
+
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.order("created_at desc")
+    if params[:q]
+      @questions = Question.find(:all, :include=> :answers, :conditions => ['questions.title LIKE ? OR questions.content LIKE ? OR answers.content LIKE ?', "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%"])
+    else
+      @questions = Question.order("created_at desc")
+    end
 
     respond_to do |format|
       format.html # index.html.erb

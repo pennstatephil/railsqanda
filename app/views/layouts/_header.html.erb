@@ -15,6 +15,9 @@
                         </li>
                     </ul>
                     <ul class="nav pull-right">
+                        <form class="navbar-search" action="/">
+                            <input type="text" class="search-query" name="q" placeholder="Search">
+                        </form>
                         <% if (user_signed_in?) %>
                                 <li><%= link_to 'Ask a Question', new_question_path %></li>
                                 <li><%= link_to 'Edit Profile',  edit_user_registration_path %></li>
