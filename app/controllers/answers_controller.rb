@@ -43,6 +43,7 @@ class AnswersController < ApplicationController
   # POST /answers.json
   def create
     @answer = current_user.answers.new(params[:answer])
+    #TODO PGH I know something has to be done here to hook up the question and answer...
 
     respond_to do |format|
       if @answer.save
